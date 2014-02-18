@@ -7,13 +7,15 @@ function on_exit() {
     [ -e ${VENV} ] && rm -rf ${VENV}
 }
 
+BUILD_NUMBER=${BUILD_NUMBER:-$(date +%Y%m%d%H%M)}
+
 REQUIREMENTS=${1:-swift-trunk}.txt
 if [ ! -e "${REQUIREMENTS}" ]; then
     echo Cannot find file ${REQUIREMENTS}
     exit 1
 fi
 
-VENV=swift-$(date +%Y%m%d%H%M)
+VENV=swift-${BUILD_NUMBER}
 
 trap on_exit exit
 
@@ -24,7 +26,7 @@ pip install -r ${REQUIREMENTS}
 # walk through and fix up the shebang
 for target in ${VENV}/bin/*; do
     if [ -x "${target}" ] && [[ $(file "${target}") =~ "ython script" ]]; then
-        echo -e '1s/^.*$/#!\/usr\/bin\/env python\nw\nq\n' | ed "${target}"
+        sed -i "${target}" -e '1s_^#!.*_#!/usr/bin/env python_'
     fi
 done
 
