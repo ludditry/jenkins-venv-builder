@@ -23,8 +23,8 @@ pip install -r ${REQUIREMENTS}
 
 # walk through and fix up the shebang
 for target in ${VENV}/bin/*; do
-    if [[ $(file "${target}") =~ "ython script" ]]; then
-        echo -e '1s/^.*$/#!\/usr\/bin\/env python\nw\nq\n' | ed "${target}" > /dev/null 2>&1
+    if [ -x "${target}" ] && [[ $(file "${target}") =~ "ython script" ]]; then
+        echo -e '1s/^.*$/#!\/usr\/bin\/env python\nw\nq\n' | ed "${target}"
     fi
 done
 
