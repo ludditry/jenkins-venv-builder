@@ -7,7 +7,7 @@ function on_exit() {
     [ -e ${VENV} ] && rm -rf ${VENV}
 }
 
-BUILD_NUMBER=${BUILD_NUMBER:-$(date +%Y%m%d%H%M)}
+BUILD_NUMBER=$(printf "%05d" ${BUILD_NUMBER:-$(date +%Y%m%d%H%M)})
 
 REQUIREMENTS=${1:-swift-trunk}.txt
 if [ ! -e "${REQUIREMENTS}" ]; then
@@ -31,4 +31,5 @@ for target in ${VENV}/bin/*; do
 done
 
 tar -cvzf ${VENV}.tar.gz ${VENV}
-mv ${VENV}.tar.gz /var/www/
+cp ${VENV}.tar.gz /var/www/
+rm ${VENV}.tar.gz
