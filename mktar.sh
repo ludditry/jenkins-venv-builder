@@ -25,8 +25,8 @@ pip install -r ${REQUIREMENTS}
 
 # walk through and fix up the shebang
 for target in ${VENV}/bin/*; do
-    if [ -x "${target}" ] && [[ $(file "${target}") =~ "ython script" ]]; then
-        sed -i "${target}" -e '1s_^#!.*_#!/usr/bin/env python_'
+    if [ -x "${target}" ] && [[ $(file "${target}") =~ "script" ]]; then
+        sed -i "${target}" -e '1s_^#!.*python$_#!/usr/bin/env python_'
     fi
 done
 
