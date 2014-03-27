@@ -21,6 +21,7 @@ trap on_exit exit
 
 virtualenv ${VENV}
 . ${VENV}/bin/activate
+pip install pip --upgrade
 pip install -r ${REQUIREMENTS}
 
 # walk through and fix up the shebang
