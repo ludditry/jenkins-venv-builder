@@ -8,10 +8,10 @@ function on_exit() {
 }
 
 BUILD_NUMBER=$(printf "%05d" ${BUILD_NUMBER:-$(date +%Y%m%d%H%M)})
+REQUIREMENTS=${1:-stable}
 
-REQUIREMENTS=${1:-swift-trunk}.txt
-if [ ! -e "${REQUIREMENTS}" ]; then
-    echo Cannot find file ${REQUIREMENTS}
+if [ ! -e "${REQUIREMENTS}".txt ]; then
+    echo Cannot find file ${REQUIREMENTS}.txt
     exit 1
 fi
 
@@ -22,7 +22,7 @@ trap on_exit exit
 virtualenv ${VENV}
 . ${VENV}/bin/activate
 pip install pip --upgrade
-pip install -r ${REQUIREMENTS}
+pip install -r ${REQUIREMENTS}.txt
 
 # walk through and fix up the shebang
 for target in ${VENV}/bin/*; do
@@ -32,5 +32,6 @@ for target in ${VENV}/bin/*; do
 done
 
 tar -cvzf ${VENV}.tar.gz ${VENV}
-cp ${VENV}.tar.gz /var/www/
+mkdir -p /var/www/${REQUIREMENTS}
+cp ${VENV}.tar.gz /var/www/${REQUIREMENTS}
 rm ${VENV}.tar.gz
