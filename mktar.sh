@@ -2,6 +2,8 @@
 
 set -e
 
+BASE_DIR=$(dirname $(readlink -f $0))
+
 function on_exit() {
     [ -e ${VENV}.tar.gz ] && rm ${VENV}.tar.gz
     [ -e ${VENV} ] && rm -rf ${VENV}
@@ -22,7 +24,11 @@ trap on_exit exit
 virtualenv ${VENV}
 . ${VENV}/bin/activate
 pip install pip --upgrade
-pip install -r ${REQUIREMENTS}.txt
+
+echo "Cementing pip versions"
+${BASE_DIR}/rewrite.sh "${REQUIREMENTS}.txt" "${VENV}/definition.txt" "${REQUIREMENTS}"
+
+pip install -r ${VENV}/definition.txt
 
 # walk through and fix up the shebang
 for target in ${VENV}/bin/*; do
