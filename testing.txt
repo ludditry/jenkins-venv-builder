@@ -1,0 +1,9 @@
+pip>=1.4
+distribute>=0.7.3
+git+https://github.com/openstack/swift@master#egg=swift
+git+https://github.com/openstack/python-swiftclient@master#egg=swiftclient
+git+https://github.com/gholt/swauth@master#egg=swauth
+git+https://github.com/zerovm/liteauth@master#egg=liteauth
+git+https://github.com/rpedde/zerocloud@icehouse#egg=zerocloud
+git+https://github.com/pandemicsyn/swiftscout@54692440220a9f751d72362108ae9cab7c5a359b#egg=swiftscout
+git+https://github.com/pandemicsyn/swift-ring-master@1.0.0#egg=srm
