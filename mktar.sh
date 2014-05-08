@@ -26,7 +26,7 @@ virtualenv ${VENV}
 pip install pip --upgrade
 
 echo "Cementing pip versions"
-${BASE_DIR}/rewrite.sh "${REQUIREMENTS}.txt" "${VENV}/definition.txt" "${REQUIREMENTS}"
+/bin/bash -x ${BASE_DIR}/rewrite.sh "${REQUIREMENTS}.txt" "${VENV}/definition.txt" "${REQUIREMENTS}"
 
 pip install -r ${VENV}/definition.txt
 
