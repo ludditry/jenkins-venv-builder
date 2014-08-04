@@ -41,3 +41,5 @@ tar -cvzf ${VENV}.tar.gz ${VENV}
 mkdir -p /var/www/${REQUIREMENTS}
 cp ${VENV}.tar.gz /var/www/${REQUIREMENTS}
 rm ${VENV}.tar.gz
+
+echo ${BUILD_NUMBER} > /var/www/${REQUIREMENTS}/snapshot-version
